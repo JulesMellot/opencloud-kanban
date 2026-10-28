@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 – unreleased
+## [0.1.0](https://github.com/JulesMellot/opencloud-kanban/releases/tag/v0.1.0) - 2026-10-28
 
 ### ✨ Features
 
