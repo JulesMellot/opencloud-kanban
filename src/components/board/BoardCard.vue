@@ -19,7 +19,7 @@
           :aria-label="$gettext('Tags')"
         >
           <li v-for="tag in card.tags" :key="tag">
-            <oc-tag size="small" class="kanban-card-tag" v-text="tag" />
+            <oc-tag size="small" class="kanban-card-tag">{{ tag }}</oc-tag>
           </li>
         </ul>
         <button

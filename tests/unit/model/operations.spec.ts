@@ -300,6 +300,27 @@ describe('assignees, tags and links', () => {
     expect(find(document, 'a')?.links).toEqual([])
   })
 
+  it('refreshes the path of a moved resource without recording it as a change', () => {
+    let document = apply(board(), { type: 'addLink', cardId: 'a', link })
+    const before = find(document, 'a')
+    const result = applyOperation(
+      document,
+      {
+        type: 'updateLink',
+        cardId: 'a',
+        resourceId: 'r1',
+        link: { ...link, path: '/x' },
+        refresh: true
+      },
+      otherContext
+    )
+    if (!result.ok) throw new Error()
+    document = result.document
+    expect(find(document, 'a')?.links[0].path).toBe('/x')
+    expect(find(document, 'a')?.updatedBy).toBe(before?.updatedBy)
+    expect(find(document, 'a')?.updatedAt).toBe(before?.updatedAt)
+  })
+
   it('merges two links when one is relinked to the target of the other', () => {
     let document = apply(board(), { type: 'addLink', cardId: 'a', link })
     const other = { ...link, resourceId: 'r2' }

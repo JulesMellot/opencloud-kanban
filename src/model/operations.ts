@@ -33,8 +33,12 @@ export type Operation =
   | { type: 'addTag'; cardId: string; tag: string }
   | { type: 'removeTag'; cardId: string; tag: string }
   | { type: 'addLink'; cardId: string; link: CardLink }
-  /** Replaces the link to `resourceId`: a new target ("relink") or a refreshed path and name. */
-  | { type: 'updateLink'; cardId: string; resourceId: string; link: CardLink }
+  /**
+   * Replaces the link to `resourceId`: a new target ("relink"), or the current path and name
+   * of a resource that was moved or renamed (`refresh`, which is not a change by the user and
+   * leaves "last changed by" alone).
+   */
+  | { type: 'updateLink'; cardId: string; resourceId: string; link: CardLink; refresh?: boolean }
   | { type: 'removeLink'; cardId: string; resourceId: string }
 
 export type OperationType = Operation['type']
@@ -109,7 +113,8 @@ function updateCard(
   document: KanbanDocument,
   cardId: string,
   context: OperationContext,
-  change: (card: Card) => Card | null
+  change: (card: Card) => Card | null,
+  { touches = true } = {}
 ): ApplyResult {
   const card = document.cards.find(({ id }) => id === cardId)
   if (!card) {
@@ -122,7 +127,9 @@ function updateCard(
   }
   return ok({
     ...document,
-    cards: document.cards.map((other) => (other.id === cardId ? touch(changed, context) : other))
+    cards: document.cards.map((other) =>
+      other.id === cardId ? (touches ? touch(changed, context) : changed) : other
+    )
   })
 }
 
@@ -272,19 +279,25 @@ export function applyOperation(
       )
 
     case 'updateLink':
-      return updateCard(document, operation.cardId, context, (card) => {
-        if (!card.links.some(({ resourceId }) => resourceId === operation.resourceId)) {
-          return null
-        }
-        const links = card.links
-          .map((link) => (link.resourceId === operation.resourceId ? operation.link : link))
-          // relinking to a resource the card already links to merges the two
-          .filter(
-            (link, index, all) =>
-              all.findIndex(({ resourceId }) => resourceId === link.resourceId) === index
-          )
-        return { ...card, links }
-      })
+      return updateCard(
+        document,
+        operation.cardId,
+        context,
+        (card) => {
+          if (!card.links.some(({ resourceId }) => resourceId === operation.resourceId)) {
+            return null
+          }
+          const links = card.links
+            .map((link) => (link.resourceId === operation.resourceId ? operation.link : link))
+            // relinking to a resource the card already links to merges the two
+            .filter(
+              (link, index, all) =>
+                all.findIndex(({ resourceId }) => resourceId === link.resourceId) === index
+            )
+          return { ...card, links }
+        },
+        { touches: !operation.refresh }
+      )
 
     case 'removeLink':
       return updateCard(document, operation.cardId, context, (card) =>
