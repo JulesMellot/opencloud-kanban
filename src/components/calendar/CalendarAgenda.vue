@@ -20,7 +20,7 @@
           :class="day === todayIso ? 'ext:text-role-secondary' : ''"
           v-text="formatDay(day, current, { weekday: 'long', day: 'numeric', month: 'long' })"
         />
-        <oc-tag v-if="day === todayIso" size="small" v-text="$gettext('Today')" />
+        <oc-tag v-if="day === todayIso" size="small">{{ $gettext('Today') }}</oc-tag>
       </div>
       <ol class="ext:m-0 ext:flex ext:list-none ext:flex-col ext:gap-1 ext:p-0">
         <calendar-entry
