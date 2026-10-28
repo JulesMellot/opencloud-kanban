@@ -35,7 +35,6 @@
       :placeholder="$gettext('Add a tag')"
       :options="options"
       taggable
-      position-fixed
       :create-option="(value: string) => value"
       @update:model-value="add"
     >

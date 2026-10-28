@@ -39,9 +39,7 @@
       :placeholder="$gettext('Add an assignee')"
       :options="options"
       :filterable="false"
-      :loading="searching"
       :get-option-label="(option: Member) => option.displayName"
-      position-fixed
       @search:input="onSearch"
       @open="onSearch('')"
       @update:model-value="add"
