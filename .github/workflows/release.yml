@@ -1,0 +1,63 @@
+name: Release
+# Publishes a release for the version in package.json, once: on a push to main after a version
+# bump (or on a v* tag), the checks run, the archive is built and the release is created with
+# the matching section of CHANGELOG.md.
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check whether this version is released
+        id: version
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_REF_TYPE" = tag ] && [ "$GITHUB_REF_NAME" != "v$version" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match version $version"; exit 1
+          fi
+          if gh release view "v$version" > /dev/null 2>&1; then
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.version.outputs.release == 'true'
+        uses: pnpm/action-setup@v4
+      - if: steps.version.outputs.release == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - if: steps.version.outputs.release == 'true'
+        run: pnpm install --frozen-lockfile
+      - if: steps.version.outputs.release == 'true'
+        run: pnpm check
+      - if: steps.version.outputs.release == 'true'
+        run: pnpm package
+      - if: steps.version.outputs.release == 'true'
+        name: Create the release
+        run: |
+          tag="${{ steps.version.outputs.tag }}"
+          version="${tag#v}"
+          {
+            echo 'Install by unzipping the archive into the web apps directory of OpenCloud, then restart it:'
+            echo
+            echo '```bash'
+            echo "unzip kanban-$version.zip -d \"\$OC_DATA_DIR/web/assets/apps/\""
+            echo '```'
+            echo
+            echo 'See the [README](https://github.com/${{ github.repository }}#installation) for Docker and the optional presence.'
+            echo
+            # the section of this version in the changelog, without its heading
+            awk -v v="$version" '/^## /{ if (found) exit; if (index($0, "[" v "]") || index($0, "## " v)) { found = 1; next } } found' CHANGELOG.md
+          } > release-notes.md
+          gh release create "$tag" "kanban-$version.zip" sha256sum.txt \
+            --target "$GITHUB_SHA" --title "Kanban $version" --notes-file release-notes.md
