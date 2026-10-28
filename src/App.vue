@@ -28,6 +28,7 @@ import { provideBoardContext, type BoardContext } from './composables/useBoardCo
 import { useViewPreferences } from './composables/useViewPreferences'
 import { useMembers } from './composables/useMembers'
 import { useResourceLinks } from './composables/useResourceLinks'
+import { usePresence } from './composables/usePresence'
 import { emptyFilters, type CardFilters } from './model/filters'
 import { today } from './model/calendar'
 import KanbanToolbar from './components/KanbanToolbar.vue'
@@ -61,6 +62,11 @@ let returnFocus: HTMLElement | null = null
 const members = useMembers(space)
 const links = useResourceLinks({ space, resource })
 const fileSideBar = useSideBar()
+const presence = usePresence({
+  resource,
+  enabled: () => !unref(loading) && !unref(loadError),
+  openCardId
+})
 
 const context = provideBoardContext({
   sync,
@@ -70,7 +76,8 @@ const context = provideBoardContext({
   openCardId,
   userId,
   members,
-  links
+  links,
+  presence
 })
 
 // every link is resolved on open, so renamed and moved files and folders show as they are now

@@ -53,6 +53,7 @@
         </item-filter>
       </div>
       <div class="ext:ml-auto ext:flex ext:items-center ext:gap-2">
+        <yjs-collaborators v-if="viewers.length > 1" :users="viewers" />
         <save-status />
         <div
           id="kanban-view-switch"
@@ -84,7 +85,13 @@
 <script setup lang="ts">
 import { computed, unref, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { ItemFilter, UserAvatar, queryItemAsString, useRouteQuery } from '@opencloud-eu/web-pkg'
+import {
+  ItemFilter,
+  UserAvatar,
+  YjsCollaborators,
+  queryItemAsString,
+  useRouteQuery
+} from '@opencloud-eu/web-pkg'
 import { useBoardContext } from '../composables/useBoardContext'
 import { allAssignees, allTags, type CardFilters } from '../model/filters'
 import type { BoardView } from '../composables/useViewPreferences'
@@ -94,7 +101,8 @@ const view = defineModel<BoardView>('view', { required: true })
 const filters = defineModel<CardFilters>('filters', { required: true })
 
 const { $gettext } = useGettext()
-const { document } = useBoardContext()
+const { document, presence } = useBoardContext()
+const viewers = presence.viewers
 
 const views = computed(() => [
   {

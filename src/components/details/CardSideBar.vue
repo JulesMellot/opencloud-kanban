@@ -15,6 +15,7 @@
           class="ext:m-0 ext:truncate ext:text-base ext:font-semibold"
           v-text="column ? column.title : $gettext('Card details')"
         />
+        <viewer-badges :viewers="presence.viewersOf(cardId)" :width="22" class="ext:ml-1" />
       </div>
     </template>
   </side-bar>
@@ -28,12 +29,13 @@ import { columnColor } from '../../model/schema'
 import { useBoardContext } from '../../composables/useBoardContext'
 import ColumnColorDot from '../board/ColumnColorDot.vue'
 import CardDetails from './CardDetails.vue'
+import ViewerBadges from '../ViewerBadges.vue'
 
 const { cardId } = defineProps<{ cardId: string }>()
 defineEmits<{ close: [] }>()
 
 const { $gettext } = useGettext()
-const { document } = useBoardContext()
+const { document, presence } = useBoardContext()
 const { focusSidebar } = useSideBar()
 
 const card = computed(() => unref(document).cards.find(({ id }) => id === cardId))

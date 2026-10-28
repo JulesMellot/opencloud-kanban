@@ -112,6 +112,7 @@
     "Nothing linked": "Aucun fichier ni dossier lié",
     "Only files and folders of this space can be linked": "Seuls les fichiers et dossiers de cet espace peuvent être liés",
     "Open": "Ouvrir",
+    "Open right now by %{names}": "Ouvert en ce moment par %{names}",
     "Open the folder »%{name}«": "Ouvrir le dossier « %{name} »",
     "Open »%{name}«": "Ouvrir « %{name} »",
     "Open »%{title}«": "Ouvrir « %{title} »",

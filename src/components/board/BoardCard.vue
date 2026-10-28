@@ -52,14 +52,14 @@
             <span class="ext:sr-only" v-text="linksLabel" />
             <span aria-hidden="true" v-text="card.links.length" />
           </span>
-          <card-avatars
-            v-if="card.assignees.length"
-            :assignees="card.assignees"
-            class="ext:ml-auto"
-          />
+          <span class="ext:ml-auto ext:inline-flex ext:items-center ext:gap-2">
+            <viewer-badges :viewers="viewers" />
+            <card-avatars v-if="card.assignees.length" :assignees="card.assignees" />
+          </span>
         </div>
       </div>
       <kanban-menu
+        v-if="!isReadOnly"
         class="ext:relative ext:z-10 ext:-mr-1 ext:-mt-1"
         :label="$gettext('Actions for »%{title}«', { title: displayTitle })"
         :title="displayTitle"
@@ -79,6 +79,7 @@ import { useBoardContext } from '../../composables/useBoardContext'
 import { useBoardActions } from '../../composables/useBoardActions'
 import KanbanMenu from '../KanbanMenu.vue'
 import CardAvatars from '../CardAvatars.vue'
+import ViewerBadges from '../ViewerBadges.vue'
 
 const { card, isDragged = false } = defineProps<{
   card: Card
@@ -87,7 +88,7 @@ const { card, isDragged = false } = defineProps<{
 defineEmits<{ dragStart: [event: PointerEvent] }>()
 
 const { $gettext, $ngettext, current } = useGettext()
-const { document, isReadOnly, openCardId, openCard } = useBoardContext()
+const { document, isReadOnly, openCardId, openCard, presence } = useBoardContext()
 const actions = useBoardActions()
 
 const displayTitle = computed(() => card.title || $gettext('Untitled card'))
@@ -100,8 +101,13 @@ const linksLabel = computed(() =>
     count: String(card.links.length)
   })
 )
+const viewers = computed(() => presence.viewersOf(card.id))
 const hasMeta = computed(
-  () => Boolean(card.publishDate) || card.links.length > 0 || card.assignees.length > 0
+  () =>
+    Boolean(card.publishDate) ||
+    card.links.length > 0 ||
+    card.assignees.length > 0 ||
+    unref(viewers).length > 0
 )
 
 function action(

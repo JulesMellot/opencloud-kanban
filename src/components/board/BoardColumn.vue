@@ -18,6 +18,7 @@
         v-text="countText"
       />
       <kanban-menu
+        v-if="menuSections.length"
         :label="$gettext('Actions for the column »%{title}«', { title: column.title })"
         :title="column.title"
         :sections="menuSections"

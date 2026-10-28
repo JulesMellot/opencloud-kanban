@@ -14,6 +14,7 @@ import type { Card, KanbanDocument } from '../model/schema'
 import { matchesFilters, type CardFilters } from '../model/filters'
 import type { useMembers } from './useMembers'
 import type { ResourceLinks } from './useResourceLinks'
+import type { Presence } from './usePresence'
 
 export interface BoardContext {
   sync: BoardSync
@@ -29,6 +30,7 @@ export interface BoardContext {
   userId: ComputedRef<string>
   members: ReturnType<typeof useMembers>
   links: ResourceLinks
+  presence: Presence
   /** Applies a change; false if it could not be applied */
   change(operation: Operation): boolean
   openCard(cardId: string): void
