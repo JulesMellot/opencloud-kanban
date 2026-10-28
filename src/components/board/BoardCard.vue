@@ -24,7 +24,7 @@
         </ul>
         <button
           type="button"
-          class="kanban-card-title ext:cursor-[inherit] ext:border-0 ext:bg-transparent ext:p-0 ext:text-left ext:text-role-on-surface ext:break-words ext:after:absolute ext:after:inset-0 ext:after:rounded-md ext:after:content-[''] ext:focus-visible:outline-none ext:focus-visible:after:outline-2 ext:focus-visible:after:outline-offset-2 ext:focus-visible:after:outline-role-outline"
+          class="kanban-card-title ext:cursor-[inherit] ext:border-0 ext:bg-transparent ext:p-0 ext:text-left ext:text-role-on-surface ext:break-words ext:after:absolute ext:after:inset-0 ext:after:rounded-md ext:after:content-['']"
           :aria-label="$gettext('Open »%{title}«', { title: displayTitle })"
           @click="openCard(card.id)"
         >

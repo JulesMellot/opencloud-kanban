@@ -11,7 +11,7 @@
   >
     <button
       type="button"
-      class="ext:flex ext:w-full ext:min-w-0 ext:cursor-[inherit] ext:rounded-md ext:border-0 ext:bg-transparent ext:px-1.5 ext:py-1 ext:text-left ext:text-sm ext:text-role-on-surface ext:focus-visible:outline-2 ext:focus-visible:outline-offset-2 ext:focus-visible:outline-role-outline"
+      class="ext:flex ext:w-full ext:min-w-0 ext:cursor-[inherit] ext:rounded-md ext:border-0 ext:bg-transparent ext:px-1.5 ext:py-1 ext:text-left ext:text-sm ext:text-role-on-surface"
       :class="compact ? 'ext:items-baseline ext:gap-1.5' : 'ext:flex-col ext:gap-0'"
       :aria-label="accessibleLabel"
       @click="openCard(card.id)"

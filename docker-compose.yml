@@ -1,0 +1,83 @@
+# Development stack: OpenCloud 9 with the app mounted from ./dist, the Yjs server of OpenCloud
+# for presence, and Traefik for TLS. Run `pnpm build:w` next to it.
+services:
+  opencloud:
+    image: ${OC_IMAGE:-opencloudeu/opencloud-rolling:9.0.0}
+    networks:
+      - opencloud-net
+    extra_hosts:
+      - host.docker.internal:${DOCKER_HOST:-host-gateway}
+    entrypoint: /bin/sh
+    command: ['-c', 'opencloud init || true && opencloud server']
+    environment:
+      OC_URL: https://host.docker.internal:9200
+      OC_INSECURE: true
+      OC_LOG_LEVEL: error
+      IDM_ADMIN_PASSWORD: admin
+      IDM_CREATE_DEMO_USERS: true
+      # the end-to-end tests prepare their data through the API with basic auth
+      PROXY_ENABLE_BASIC_AUTH: true
+      PROXY_TLS: 'false'
+      WEB_ASSET_APPS_PATH: /web/apps
+      # presence (who has the board open); the board works without it
+      WEB_OPTION_YJS_SERVER_URL: wss://host.docker.internal:9200/yjs
+    labels:
+      traefik.enable: true
+      traefik.http.routers.opencloud.tls: true
+      traefik.http.routers.opencloud.rule: Host(`host.docker.internal`) && PathPrefix(`/`)
+      traefik.http.routers.opencloud.entrypoints: opencloud
+      traefik.http.services.opencloud.loadbalancer.server.port: 9200
+    volumes:
+      - opencloud-config:/etc/opencloud
+      - opencloud-data:/var/lib/opencloud
+      - ./dev/docker/opencloud/proxy.yaml:/etc/opencloud/proxy.yaml
+      - ./dist:/web/apps/kanban
+    depends_on:
+      - traefik
+
+  yjs:
+    image: ${YJS_IMAGE:-opencloudeu/yjs:1.1.1}
+    networks:
+      - opencloud-net
+    extra_hosts:
+      - host.docker.internal:${DOCKER_HOST:-host-gateway}
+    environment:
+      PORT: '1234'
+      OPENCLOUD_URL: https://host.docker.internal:9200
+      # dev only: accept the self-signed certificate of Traefik
+      NODE_TLS_REJECT_UNAUTHORIZED: '0'
+    restart: unless-stopped
+    stop_grace_period: 20s
+
+  traefik:
+    image: traefik:v3.7.1
+    networks:
+      opencloud-net:
+        aliases:
+          - host.docker.internal:9200
+    restart: unless-stopped
+    entrypoint:
+      [
+        '/bin/sh',
+        '-c',
+        "[ -f /certificates/server.key ] && ./entrypoint.sh $$@ || (apk add openssl && openssl req -subj '/CN=opencloud.test' -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -keyout /certificates/server.key -out /certificates/server.crt && chmod -R 777 /certificates && ./entrypoint.sh $$@)"
+      ]
+    command:
+      - '--log.level=INFO'
+      - '--providers.file.directory=/configs'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.opencloud.address=:9200'
+    ports:
+      - '9200:9200'
+    volumes:
+      - './dev/docker/traefik/certificates:/certificates'
+      - './dev/docker/traefik/configs:/configs'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+
+volumes:
+  opencloud-config:
+  opencloud-data:
+
+networks:
+  opencloud-net:

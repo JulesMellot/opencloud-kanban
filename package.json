@@ -20,7 +20,8 @@
     "format:write": "prettier . --write",
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest --watch=false",
     "test:e2e": "playwright test",
-    "check": "pnpm format:check && pnpm lint && pnpm check:types && pnpm test:unit && pnpm build"
+    "check": "pnpm format:check && pnpm lint && pnpm check:types && pnpm test:unit && pnpm build",
+    "package": "pnpm build && node scripts/package.mjs"
   },
   "devDependencies": {
     "@opencloud-eu/design-system": "^8.2.1",
@@ -50,5 +51,8 @@
     "vue-tsc": "^3.2.6",
     "vue3-gettext": "4.0.1"
   },
-  "packageManager": "pnpm@11.28.5"
+  "packageManager": "pnpm@11.28.5",
+  "engines": {
+    "node": ">=22.18"
+  }
 }

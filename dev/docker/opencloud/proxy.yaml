@@ -1,0 +1,9 @@
+# Routes /yjs to the Yjs server, so the browser reaches it on the same origin as OpenCloud.
+# The route is unprotected because the token travels inside the WebSocket, not in a header;
+# the Yjs server checks it against OpenCloud itself.
+additional_policies:
+  - name: default
+    routes:
+      - endpoint: /yjs
+        backend: http://yjs:1234
+        unprotected: true
