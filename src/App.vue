@@ -7,7 +7,12 @@
         <kanban-toolbar v-model:view="view" v-model:filters="filters" />
         <status-banner />
         <board-view v-if="view === 'board'" class="ext:min-h-0 ext:flex-1" />
-        <calendar-view v-else v-model:range="calendarRange" class="ext:min-h-0 ext:flex-1" />
+        <calendar-view
+          v-else
+          v-model:range="calendarRange"
+          v-model:cursor="calendarCursor"
+          class="ext:min-h-0 ext:flex-1"
+        />
       </div>
       <card-side-bar v-if="openCardId" :key="openCardId" :card-id="openCardId" @close="closeCard" />
     </template>
@@ -24,6 +29,7 @@ import { useViewPreferences } from './composables/useViewPreferences'
 import { useMembers } from './composables/useMembers'
 import { useResourceLinks } from './composables/useResourceLinks'
 import { emptyFilters, type CardFilters } from './model/filters'
+import { today } from './model/calendar'
 import KanbanToolbar from './components/KanbanToolbar.vue'
 import StatusBanner from './components/StatusBanner.vue'
 import LoadErrorMessage from './components/LoadErrorMessage.vue'
@@ -47,6 +53,8 @@ const { view, calendarRange } = useViewPreferences(userId)
 
 const filters = shallowRef<CardFilters>(emptyFilters())
 const openCardId = shallowRef<string | null>(null)
+/** Day the calendar shows the month or week of; kept while switching views */
+const calendarCursor = shallowRef(today())
 /** Element that had the focus when a card was opened, focused again on close */
 let returnFocus: HTMLElement | null = null
 
