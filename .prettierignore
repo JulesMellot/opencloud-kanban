@@ -1,3 +1,5 @@
 dist
 pnpm-lock.yaml
 l10n/translations.json
+test-results
+playwright-report
