@@ -15,6 +15,7 @@
       mode="click"
       padding-size="small"
       :toggle="`#${toggleId}`"
+      teleport="body"
       :title="title"
       close-on-click
       is-menu
