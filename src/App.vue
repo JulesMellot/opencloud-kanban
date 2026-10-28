@@ -1,17 +1,17 @@
 <template>
-  <div class="kanban-app ext:flex ext:size-full ext:overflow-hidden ext:text-role-on-surface">
+  <div class="kanban-app kb:flex kb:size-full kb:overflow-hidden kb:text-role-on-surface">
     <app-loading-spinner v-if="loading" />
     <load-error-message v-else-if="loadError" :error="loadError" @retry="reload" />
     <template v-else-if="board">
-      <div class="ext:flex ext:min-w-0 ext:flex-1 ext:flex-col">
+      <div class="kb:flex kb:min-w-0 kb:flex-1 kb:flex-col">
         <kanban-toolbar v-model:view="view" v-model:filters="filters" />
         <status-banner />
-        <board-view v-if="view === 'board'" class="ext:min-h-0 ext:flex-1" />
+        <board-view v-if="view === 'board'" class="kb:min-h-0 kb:flex-1" />
         <calendar-view
           v-else
           v-model:range="calendarRange"
           v-model:cursor="calendarCursor"
-          class="ext:min-h-0 ext:flex-1"
+          class="kb:min-h-0 kb:flex-1"
         />
       </div>
       <card-side-bar v-if="openCardId" :key="openCardId" :card-id="openCardId" @close="closeCard" />

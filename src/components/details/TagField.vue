@@ -1,18 +1,18 @@
 <template>
-  <div class="kanban-tags ext:flex ext:flex-col ext:gap-2">
-    <span :id="labelId" class="ext:font-semibold ext:text-sm" v-text="$gettext('Tags')" />
+  <div class="kanban-tags kb:flex kb:flex-col kb:gap-2">
+    <span :id="labelId" class="kb:font-semibold kb:text-sm" v-text="$gettext('Tags')" />
     <ul
       v-if="card.tags.length"
-      class="ext:m-0 ext:flex ext:list-none ext:flex-wrap ext:gap-1 ext:p-0"
+      class="kb:m-0 kb:flex kb:list-none kb:flex-wrap kb:gap-1 kb:p-0"
       :aria-labelledby="labelId"
     >
       <li v-for="tag in card.tags" :key="tag">
-        <oc-tag size="small" class="ext:gap-1">
+        <oc-tag size="small" class="kb:gap-1">
           <span v-text="tag" />
           <oc-button
             v-if="!isReadOnly"
             appearance="raw"
-            class="ext:-mr-1 ext:p-0"
+            class="kb:-mr-1 kb:p-0"
             :aria-label="$gettext('Remove the tag %{tag}', { tag })"
             @click="remove(tag)"
           >
@@ -23,7 +23,7 @@
     </ul>
     <p
       v-else-if="isReadOnly"
-      class="ext:m-0 ext:text-sm ext:text-role-on-surface-variant"
+      class="kb:m-0 kb:text-sm kb:text-role-on-surface-variant"
       v-text="$gettext('No tags')"
     />
     <oc-select

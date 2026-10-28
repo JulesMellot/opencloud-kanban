@@ -1,6 +1,6 @@
 {
   "name": "web-app-kanban",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Kanban boards and publishing calendar as a native OpenCloud file type (.kanban)",
   "license": "AGPL-3.0",

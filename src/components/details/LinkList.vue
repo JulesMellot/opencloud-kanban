@@ -1,27 +1,27 @@
 <template>
-  <div class="kanban-links ext:flex ext:flex-col ext:gap-2">
+  <div class="kanban-links kb:flex kb:flex-col kb:gap-2">
     <span
       :id="labelId"
-      class="ext:font-semibold ext:text-sm"
+      class="kb:font-semibold kb:text-sm"
       v-text="$gettext('Files and folders')"
     />
     <ul
       v-if="card.links.length"
-      class="ext:m-0 ext:flex ext:list-none ext:flex-col ext:gap-1 ext:p-0"
+      class="kb:m-0 kb:flex kb:list-none kb:flex-col kb:gap-1 kb:p-0"
       :aria-labelledby="labelId"
     >
       <li
         v-for="link in card.links"
         :key="link.resourceId"
-        class="kanban-link ext:flex ext:items-center ext:gap-2 ext:rounded-md ext:p-1 ext:hover:bg-role-surface-container-highest"
+        class="kanban-link kb:flex kb:items-center kb:gap-2 kb:rounded-md kb:p-1 kb:hover:bg-role-surface-container-highest"
         :data-state="statusOf(link).state"
       >
         <template v-if="statusOf(link).state === 'broken'">
-          <oc-icon name="link-unlink" fill-type="none" class="ext:shrink-0 ext:fill-role-error" />
-          <span class="ext:flex ext:min-w-0 ext:flex-1 ext:flex-col">
-            <span class="ext:truncate ext:line-through" v-text="link.name" />
+          <oc-icon name="link-unlink" fill-type="none" class="kb:shrink-0 kb:fill-role-error" />
+          <span class="kb:flex kb:min-w-0 kb:flex-1 kb:flex-col">
+            <span class="kb:truncate kb:line-through" v-text="link.name" />
             <span
-              class="ext:text-sm ext:text-role-error"
+              class="kb:text-sm kb:text-role-error"
               v-text="$gettext('Deleted, moved to another space, or out of your reach')"
             />
           </span>
@@ -29,7 +29,7 @@
             <oc-button
               appearance="raw"
               size="small"
-              class="ext:p-1"
+              class="kb:p-1"
               :aria-label="$gettext('Relink »%{name}«', { name: link.name })"
               @click="relink(link)"
             >
@@ -38,7 +38,7 @@
             <oc-button
               appearance="raw"
               size="small"
-              class="ext:p-1"
+              class="kb:p-1"
               :aria-label="$gettext('Remove the link to »%{name}«', { name: link.name })"
               @click="remove(link)"
             >
@@ -51,7 +51,7 @@
             appearance="raw"
             justify-content="left"
             gap-size="small"
-            class="kanban-link-open ext:min-w-0 ext:flex-1 ext:p-0 ext:text-left"
+            class="kanban-link-open kb:min-w-0 kb:flex-1 kb:p-0 kb:text-left"
             :aria-label="
               link.isFolder
                 ? $gettext('Open the folder »%{name}«', { name: displayName(link) })
@@ -61,13 +61,13 @@
           >
             <resource-icon
               :resource="iconResource(link)"
-              size-class="ext:size-6"
-              class="ext:shrink-0"
+              size-class="kb:size-6"
+              class="kb:shrink-0"
             />
-            <span class="ext:flex ext:min-w-0 ext:flex-col">
-              <span class="ext:truncate" v-text="displayName(link)" />
+            <span class="kb:flex kb:min-w-0 kb:flex-col">
+              <span class="kb:truncate" v-text="displayName(link)" />
               <span
-                class="ext:truncate ext:text-sm ext:text-role-on-surface-variant"
+                class="kb:truncate kb:text-sm kb:text-role-on-surface-variant"
                 v-text="parentOf(link)"
               />
             </span>
@@ -81,7 +81,7 @@
             v-if="!isReadOnly"
             v-oc-tooltip="$gettext('Remove the link')"
             appearance="raw"
-            class="ext:p-1"
+            class="kb:p-1"
             :aria-label="$gettext('Remove the link to »%{name}«', { name: displayName(link) })"
             @click="remove(link)"
           >
@@ -92,10 +92,10 @@
     </ul>
     <p
       v-else-if="isReadOnly"
-      class="ext:m-0 ext:text-sm ext:text-role-on-surface-variant"
+      class="kb:m-0 kb:text-sm kb:text-role-on-surface-variant"
       v-text="$gettext('Nothing linked')"
     />
-    <div v-if="!isReadOnly" class="ext:flex ext:flex-wrap ext:gap-2">
+    <div v-if="!isReadOnly" class="kb:flex kb:flex-wrap kb:gap-2">
       <oc-button size="small" appearance="outline" @click="links.pickFile(add)">
         <oc-icon name="file-text" fill-type="line" size="small" />
         <span v-text="$gettext('Link a file')" />

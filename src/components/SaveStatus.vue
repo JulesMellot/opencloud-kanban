@@ -1,14 +1,14 @@
 <template>
   <span
-    class="kanban-save-status ext:flex ext:items-center ext:gap-1 ext:text-sm"
-    :class="state === 'error' ? 'ext:text-role-error' : 'ext:text-role-on-surface-variant'"
+    class="kanban-save-status kb:flex kb:items-center kb:gap-1 kb:text-sm"
+    :class="state === 'error' ? 'kb:text-role-error' : 'kb:text-role-on-surface-variant'"
     role="status"
     aria-live="polite"
     :data-state="state"
   >
     <oc-spinner v-if="state === 'saving'" size="xsmall" :aria-label="label" />
     <oc-icon v-else :name="icon" fill-type="line" size="small" />
-    <span class="ext:hidden ext:sm:inline" v-text="label" />
+    <span class="kb:hidden kb:sm:inline" v-text="label" />
   </span>
 </template>
 

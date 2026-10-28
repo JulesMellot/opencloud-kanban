@@ -48,6 +48,23 @@ test('a board opens from Files and shows its columns and cards', async ({ page }
   expect(errors).toEqual([])
 })
 
+test('the board keeps its layout when another extension loads its styles later', async ({
+  page
+}) => {
+  await login(page, editor)
+  await openBoard(page, space)
+  // what an extension built with the extension-sdk ships, e.g. Folder icons or Forms
+  await page.addStyleTag({
+    content:
+      '@layer utilities { .ext\\:flex-col { flex-direction: column } .ext\\:w-full { width: 100% } }'
+  })
+  const [first, second] = await page.locator('.kanban-column').all()
+  const a = await first.boundingBox()
+  const b = await second.boundingBox()
+  expect(b?.x).toBeGreaterThan((a?.x ?? 0) + (a?.width ?? 0) - 1)
+  expect(b?.y).toBe(a?.y)
+})
+
 test('a new board created from the New menu has the default columns', async ({ page }) => {
   await login(page, editor)
   await page.goto('/files/spaces/projects')

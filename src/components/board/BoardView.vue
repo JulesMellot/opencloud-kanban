@@ -1,9 +1,9 @@
 <template>
-  <div class="kanban-board ext:flex ext:flex-col">
+  <div class="kanban-board kb:flex kb:flex-col">
     <no-content-message
       v-if="!columns.length"
       id="kanban-board-empty"
-      class="ext:flex-1"
+      class="kb:flex-1"
       :icon="{ name: 'kanban-view-2', fillType: 'none' }"
     >
       <template #message>
@@ -23,7 +23,7 @@
     </no-content-message>
     <div
       v-else
-      class="kanban-board-columns ext:flex ext:min-h-0 ext:flex-1 ext:flex-col ext:gap-3 ext:overflow-y-auto ext:px-4 ext:pb-4 ext:sm:flex-row ext:sm:items-start ext:sm:overflow-x-auto ext:sm:overflow-y-hidden"
+      class="kanban-board-columns kb:flex kb:min-h-0 kb:flex-1 kb:flex-col kb:gap-3 kb:overflow-y-auto kb:px-4 kb:pb-4 kb:sm:flex-row kb:sm:items-start kb:sm:overflow-x-auto kb:sm:overflow-y-hidden"
       data-drag-scroll
     >
       <board-column
@@ -37,12 +37,12 @@
         :dragged-height="draggedHeight"
         @drag-start="onPointerDown"
       />
-      <div v-if="!isReadOnly" class="ext:shrink-0 ext:sm:w-72">
+      <div v-if="!isReadOnly" class="kb:shrink-0 kb:sm:w-72">
         <oc-button
           appearance="raw"
           justify-content="left"
           gap-size="small"
-          class="kanban-add-column ext:w-full ext:rounded-xl ext:border ext:border-dashed ext:border-role-outline-variant ext:px-3 ext:py-2.5 ext:text-role-on-surface-variant"
+          class="kanban-add-column kb:w-full kb:rounded-xl kb:border kb:border-dashed kb:border-role-outline-variant kb:px-3 kb:py-2.5 kb:text-role-on-surface-variant"
           @click="actions.addColumn(columns.at(-1)?.id ?? null)"
         >
           <oc-icon name="add" fill-type="line" />

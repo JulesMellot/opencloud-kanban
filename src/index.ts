@@ -1,4 +1,4 @@
-import '@opencloud-eu/extension-sdk/tailwind.css'
+import './styles.css'
 import {
   AppWrapperRoute,
   defineWebApplication,

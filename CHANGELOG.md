@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/JulesMellot/opencloud-kanban/releases/tag/v0.1.1) - 2026-10-28
+
+### 🐛 Bug Fixes
+
+- The board no longer switches to its phone layout on a wide screen when other extensions built
+  with the extension SDK (Folder icons, Forms, …) are installed: the app uses its own CSS class
+  prefix, so the stylesheets of other extensions cannot override it, nor it theirs.
+
 ## [0.1.0](https://github.com/JulesMellot/opencloud-kanban/releases/tag/v0.1.0) - 2026-10-28
 
 ### ✨ Features

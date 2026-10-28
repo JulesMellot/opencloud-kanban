@@ -1,5 +1,5 @@
 <template>
-  <div v-if="card" class="kanban-card-details ext:flex ext:flex-col ext:gap-4 ext:px-2 ext:pt-1">
+  <div v-if="card" class="kanban-card-details kb:flex kb:flex-col kb:gap-4 kb:px-2 kb:pt-1">
     <div @focusout="title.blur">
       <oc-text-input
         id="kanban-card-title"
@@ -50,19 +50,19 @@
     <link-list :card="card" />
 
     <dl
-      class="kanban-card-history ext:m-0 ext:grid ext:grid-cols-[auto_1fr] ext:gap-x-3 ext:gap-y-1 ext:text-sm"
+      class="kanban-card-history kb:m-0 kb:grid kb:grid-cols-[auto_1fr] kb:gap-x-3 kb:gap-y-1 kb:text-sm"
     >
       <template v-if="card.createdAt">
-        <dt class="ext:text-role-on-surface-variant" v-text="$gettext('Created')" />
-        <dd class="ext:m-0" v-text="history(card.createdAt, card.createdBy)" />
+        <dt class="kb:text-role-on-surface-variant" v-text="$gettext('Created')" />
+        <dd class="kb:m-0" v-text="history(card.createdAt, card.createdBy)" />
       </template>
       <template v-if="card.updatedAt">
-        <dt class="ext:text-role-on-surface-variant" v-text="$gettext('Last change')" />
-        <dd class="ext:m-0" v-text="history(card.updatedAt, card.updatedBy)" />
+        <dt class="kb:text-role-on-surface-variant" v-text="$gettext('Last change')" />
+        <dd class="kb:m-0" v-text="history(card.updatedAt, card.updatedBy)" />
       </template>
     </dl>
 
-    <div v-if="!isReadOnly" class="ext:border-t ext:border-role-outline-variant ext:pt-4">
+    <div v-if="!isReadOnly" class="kb:border-t kb:border-role-outline-variant kb:pt-4">
       <oc-button
         appearance="outline"
         color-role="error"

@@ -1,6 +1,6 @@
 <template>
   <span
-    class="kanban-color-dot ext:inline-block ext:size-3 ext:shrink-0 ext:rounded-full"
+    class="kanban-color-dot kb:inline-block kb:size-3 kb:shrink-0 kb:rounded-full"
     :style="{ backgroundColor: `var(--oc-role-${color})` }"
     aria-hidden="true"
   />

@@ -56,7 +56,7 @@ Téléchargez `kanban-<version>.zip` et décompressez-le dans le dossier des app
 d’OpenCloud. L’archive contient un dossier `kanban/`, comme les extensions officielles :
 
 ```bash
-unzip kanban-0.1.0.zip -d "$OC_DATA_DIR/web/assets/apps/"
+unzip kanban-0.1.1.zip -d "$OC_DATA_DIR/web/assets/apps/"
 ```
 
 | Installation                                                           | Dossier des applications web                                                                                   |

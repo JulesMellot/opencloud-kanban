@@ -1,7 +1,7 @@
 <template>
-  <fieldset class="kanban-publish-date ext:m-0 ext:border-0 ext:p-0">
-    <legend class="ext:sr-only" v-text="$gettext('Publication')" />
-    <div class="ext:grid ext:grid-cols-[1fr_8rem] ext:items-start ext:gap-2">
+  <fieldset class="kanban-publish-date kb:m-0 kb:border-0 kb:p-0">
+    <legend class="kb:sr-only" v-text="$gettext('Publication')" />
+    <div class="kb:grid kb:grid-cols-[1fr_8rem] kb:items-start kb:gap-2">
       <oc-datepicker
         id="kanban-card-publish-date"
         :label="$gettext('Publication date')"

@@ -1,11 +1,11 @@
 <template>
-  <div class="kanban-calendar ext:flex ext:flex-col ext:gap-2 ext:px-4 ext:pb-4">
-    <div class="ext:flex ext:flex-wrap ext:items-center ext:gap-2">
-      <div class="ext:flex ext:items-center ext:gap-1">
+  <div class="kanban-calendar kb:flex kb:flex-col kb:gap-2 kb:px-4 kb:pb-4">
+    <div class="kb:flex kb:flex-wrap kb:items-center kb:gap-2">
+      <div class="kb:flex kb:items-center kb:gap-1">
         <oc-button
           v-oc-tooltip="previousLabel"
           appearance="raw"
-          class="kanban-calendar-previous ext:p-1"
+          class="kanban-calendar-previous kb:p-1"
           :aria-label="previousLabel"
           @click="go(-1)"
         >
@@ -14,7 +14,7 @@
         <oc-button
           v-oc-tooltip="nextLabel"
           appearance="raw"
-          class="kanban-calendar-next ext:p-1"
+          class="kanban-calendar-next kb:p-1"
           :aria-label="nextLabel"
           @click="go(1)"
         >
@@ -25,7 +25,7 @@
         </oc-button>
       </div>
       <h2
-        class="kanban-calendar-title ext:m-0 ext:flex-1 ext:text-lg ext:font-semibold ext:first-letter:uppercase"
+        class="kanban-calendar-title kb:m-0 kb:flex-1 kb:text-lg kb:font-semibold kb:first-letter:uppercase"
         aria-live="polite"
         v-text="title"
       />
@@ -39,7 +39,7 @@
           :color-role="range === option.name ? 'secondaryContainer' : 'secondary'"
           :no-hover="range === option.name"
           size="small"
-          class="ext:px-2"
+          class="kb:px-2"
           @click="range = option.name"
         >
           <span v-text="option.label" />
@@ -47,10 +47,10 @@
       </div>
     </div>
 
-    <div class="ext:flex ext:min-h-0 ext:flex-1 ext:flex-col ext:gap-3 ext:md:flex-row">
-      <div class="ext:flex ext:min-h-0 ext:min-w-0 ext:flex-1 ext:flex-col">
+    <div class="kb:flex kb:min-h-0 kb:flex-1 kb:flex-col kb:gap-3 kb:md:flex-row">
+      <div class="kb:flex kb:min-h-0 kb:min-w-0 kb:flex-1 kb:flex-col">
         <calendar-grid
-          class="ext:hidden ext:flex-1 ext:sm:flex"
+          class="kb:hidden kb:flex-1 kb:sm:flex"
           :weeks="weeks"
           :range="range"
           :month="cursor"
@@ -63,7 +63,7 @@
           @add-on-day="addOnDay"
         />
         <calendar-agenda
-          class="ext:sm:hidden"
+          class="kb:sm:hidden"
           :days="weeks.flat()"
           :today-iso="todayIso"
           :label="title"
@@ -74,7 +74,7 @@
         />
       </div>
       <undated-list
-        class="ext:md:w-72 ext:md:shrink-0"
+        class="kb:md:w-72 kb:md:shrink-0"
         :cards="undated"
         :dragged-id="draggedId"
         :drop-target="dropTarget"

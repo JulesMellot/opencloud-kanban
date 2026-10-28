@@ -1,7 +1,7 @@
 <template>
   <no-content-message
     id="kanban-load-error"
-    class="ext:size-full"
+    class="kb:size-full"
     img-src="images/illustrations/404.svg"
     role="alert"
   >
@@ -9,10 +9,10 @@
       <span v-text="title" />
     </template>
     <template #callToAction>
-      <p class="ext:mt-0 ext:max-w-md ext:text-center" v-text="text" />
-      <p v-if="detail" class="ext:mt-0 ext:text-sm ext:text-role-on-surface-variant">
+      <p class="kb:mt-0 kb:max-w-md kb:text-center" v-text="text" />
+      <p v-if="detail" class="kb:mt-0 kb:text-sm kb:text-role-on-surface-variant">
         <span v-text="$gettext('Problem found at:')" />
-        <code class="ext:ml-1" v-text="detail" />
+        <code class="kb:ml-1" v-text="detail" />
       </p>
       <oc-button v-if="canRetry" appearance="outline" @click="$emit('retry')">
         <oc-icon name="refresh" fill-type="line" />

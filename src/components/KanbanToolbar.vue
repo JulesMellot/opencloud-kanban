@@ -1,22 +1,22 @@
 <template>
   <div
     id="kanban-app-bar"
-    class="ext:bg-role-surface ext:rounded-t-xl ext:px-4 ext:py-1"
+    class="kb:bg-role-surface kb:rounded-t-xl kb:px-4 kb:py-1"
     :aria-label="$gettext('Board toolbar')"
     role="toolbar"
   >
-    <div class="ext:flex ext:min-h-12 ext:flex-wrap ext:items-center ext:gap-x-2 ext:gap-y-1">
+    <div class="kb:flex kb:min-h-12 kb:flex-wrap kb:items-center kb:gap-x-2 kb:gap-y-1">
       <oc-search-bar
         id="kanban-search"
         v-model="text"
         is-filter
-        class="ext:w-full ext:sm:w-3xs"
+        class="kb:w-full kb:sm:w-3xs"
         :label="$gettext('Search cards')"
         :placeholder="$gettext('Search cards')"
         button-hidden
         :is-rounded="false"
       />
-      <div class="ext:flex ext:flex-wrap ext:items-center ext:gap-2">
+      <div class="kb:flex kb:flex-wrap kb:items-center kb:gap-2">
         <item-filter
           filter-name="assignees"
           :filter-label="$gettext('Assignee')"
@@ -28,7 +28,7 @@
           :filterable-attributes="['name']"
         >
           <template #image="{ item }">
-            <user-avatar :user-id="item.id" :user-name="item.name" :width="24" class="ext:mr-2" />
+            <user-avatar :user-id="item.id" :user-name="item.name" :width="24" class="kb:mr-2" />
           </template>
           <template #item="{ item }">
             <span v-text="item.name" />
@@ -45,19 +45,19 @@
           :filterable-attributes="['name']"
         >
           <template #image>
-            <oc-icon name="price-tag-3" fill-type="line" size="small" class="ext:mr-2" />
+            <oc-icon name="price-tag-3" fill-type="line" size="small" class="kb:mr-2" />
           </template>
           <template #item="{ item }">
             <span v-text="item.name" />
           </template>
         </item-filter>
       </div>
-      <div class="ext:ml-auto ext:flex ext:items-center ext:gap-2">
+      <div class="kb:ml-auto kb:flex kb:items-center kb:gap-2">
         <yjs-collaborators v-if="viewers.length > 1" :users="viewers" />
         <save-status />
         <div
           id="kanban-view-switch"
-          class="oc-button-group ext:mx-1 ext:my-2"
+          class="oc-button-group kb:mx-1 kb:my-2"
           role="group"
           :aria-label="$gettext('View')"
         >
@@ -71,7 +71,7 @@
             :appearance="view === option.name ? 'filled' : 'raw'"
             :color-role="view === option.name ? 'secondaryContainer' : 'secondary'"
             :no-hover="view === option.name"
-            class="ext:p-1"
+            class="kb:p-1"
             @click="view = option.name"
           >
             <oc-icon :name="option.icon" :fill-type="option.fillType" />

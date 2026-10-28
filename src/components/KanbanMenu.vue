@@ -1,11 +1,11 @@
 <template>
-  <span class="kanban-menu ext:inline-flex" data-no-drag>
+  <span class="kanban-menu kb:inline-flex" data-no-drag>
     <oc-button
       :id="toggleId"
       v-oc-tooltip="label"
       :aria-label="label"
       appearance="raw"
-      class="kanban-menu-toggle ext:p-1"
+      class="kanban-menu-toggle kb:p-1"
       @click.stop
     >
       <oc-icon name="more-2" />

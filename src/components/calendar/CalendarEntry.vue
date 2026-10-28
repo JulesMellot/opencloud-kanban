@@ -1,31 +1,27 @@
 <template>
   <li
     :data-card-id="card.id"
-    class="kanban-calendar-entry ext:relative ext:list-none ext:rounded-md ext:border-l-4 ext:bg-role-surface-container ext:outline ext:outline-role-surface-container-highest ext:select-none ext:hover:bg-role-surface-container-highest ext:[-webkit-touch-callout:none]"
+    class="kanban-calendar-entry kb:relative kb:list-none kb:rounded-md kb:border-l-4 kb:bg-role-surface-container kb:outline kb:outline-role-surface-container-highest kb:select-none kb:hover:bg-role-surface-container-highest kb:[-webkit-touch-callout:none]"
     :class="[
-      { 'ext:bg-role-secondary-container ext:outline-2 ext:outline-role-outline': isOpen },
-      { 'ext:opacity-40': isDragged, 'ext:cursor-grab': !isReadOnly }
+      { 'kb:bg-role-secondary-container kb:outline-2 kb:outline-role-outline': isOpen },
+      { 'kb:opacity-40': isDragged, 'kb:cursor-grab': !isReadOnly }
     ]"
     :style="{ borderLeftColor: `var(--oc-role-${color})` }"
     @pointerdown="$emit('dragStart', $event)"
   >
     <button
       type="button"
-      class="ext:flex ext:w-full ext:min-w-0 ext:cursor-[inherit] ext:rounded-md ext:border-0 ext:bg-transparent ext:px-1.5 ext:py-1 ext:text-left ext:text-sm ext:text-role-on-surface"
-      :class="compact ? 'ext:items-baseline ext:gap-1.5' : 'ext:flex-col ext:gap-0'"
+      class="kb:flex kb:w-full kb:min-w-0 kb:cursor-[inherit] kb:rounded-md kb:border-0 kb:bg-transparent kb:px-1.5 kb:py-1 kb:text-left kb:text-sm kb:text-role-on-surface"
+      :class="compact ? 'kb:items-baseline kb:gap-1.5' : 'kb:flex-col kb:gap-0'"
       :aria-label="accessibleLabel"
       @click="openCard(card.id)"
     >
       <span
         v-if="showTime && card.publishDate"
-        class="ext:shrink-0 ext:text-role-on-surface-variant ext:tabular-nums"
+        class="kb:shrink-0 kb:text-role-on-surface-variant kb:tabular-nums"
         v-text="formatTime(card.publishDate, current)"
       />
-      <span
-        class="ext:min-w-0"
-        :class="compact ? 'ext:truncate' : 'ext:break-words'"
-        v-text="title"
-      />
+      <span class="kb:min-w-0" :class="compact ? 'kb:truncate' : 'kb:break-words'" v-text="title" />
     </button>
   </li>
 </template>

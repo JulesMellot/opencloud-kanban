@@ -2,20 +2,20 @@
   <li
     :id="`kanban-card-${card.id}`"
     :data-card-id="card.id"
-    class="kanban-card ext:relative ext:list-none ext:rounded-md ext:outline ext:select-none ext:[-webkit-touch-callout:none]"
+    class="kanban-card kb:relative kb:list-none kb:rounded-md kb:outline kb:select-none kb:[-webkit-touch-callout:none]"
     :class="[
       isOpen
-        ? 'kanban-card-open ext:bg-role-secondary-container ext:outline-2 ext:outline-role-outline'
-        : 'ext:bg-role-surface-container ext:outline-role-surface-container-highest ext:hover:bg-role-surface-container-highest',
-      { 'ext:opacity-40': isDragged, 'ext:cursor-grab': !isReadOnly }
+        ? 'kanban-card-open kb:bg-role-secondary-container kb:outline-2 kb:outline-role-outline'
+        : 'kb:bg-role-surface-container kb:outline-role-surface-container-highest kb:hover:bg-role-surface-container-highest',
+      { 'kb:opacity-40': isDragged, 'kb:cursor-grab': !isReadOnly }
     ]"
     @pointerdown="$emit('dragStart', $event)"
   >
-    <div class="ext:flex ext:items-start ext:gap-1 ext:p-2">
-      <div class="ext:flex ext:min-w-0 ext:flex-1 ext:flex-col ext:gap-1.5">
+    <div class="kb:flex kb:items-start kb:gap-1 kb:p-2">
+      <div class="kb:flex kb:min-w-0 kb:flex-1 kb:flex-col kb:gap-1.5">
         <ul
           v-if="card.tags.length"
-          class="ext:m-0 ext:flex ext:list-none ext:flex-wrap ext:gap-1 ext:p-0"
+          class="kb:m-0 kb:flex kb:list-none kb:flex-wrap kb:gap-1 kb:p-0"
           :aria-label="$gettext('Tags')"
         >
           <li v-for="tag in card.tags" :key="tag">
@@ -24,35 +24,35 @@
         </ul>
         <button
           type="button"
-          class="kanban-card-title ext:cursor-[inherit] ext:border-0 ext:bg-transparent ext:p-0 ext:text-left ext:text-role-on-surface ext:break-words ext:after:absolute ext:after:inset-0 ext:after:rounded-md ext:after:content-['']"
+          class="kanban-card-title kb:cursor-[inherit] kb:border-0 kb:bg-transparent kb:p-0 kb:text-left kb:text-role-on-surface kb:break-words kb:after:absolute kb:after:inset-0 kb:after:rounded-md kb:after:content-['']"
           :aria-label="$gettext('Open »%{title}«', { title: displayTitle })"
           @click="openCard(card.id)"
         >
-          <span class="ext:line-clamp-4" v-text="displayTitle" />
+          <span class="kb:line-clamp-4" v-text="displayTitle" />
         </button>
         <div
           v-if="hasMeta"
-          class="ext:flex ext:flex-wrap ext:items-center ext:gap-x-3 ext:gap-y-1 ext:text-sm ext:text-role-on-surface-variant"
+          class="kb:flex kb:flex-wrap kb:items-center kb:gap-x-3 kb:gap-y-1 kb:text-sm kb:text-role-on-surface-variant"
         >
           <span
             v-if="card.publishDate"
-            class="kanban-card-publish ext:inline-flex ext:items-center ext:gap-1"
+            class="kanban-card-publish kb:inline-flex kb:items-center kb:gap-1"
             :title="$gettext('Publication')"
           >
             <oc-icon name="calendar-event" fill-type="line" size="small" />
-            <span class="ext:sr-only" v-text="$gettext('Publication:')" />
+            <span class="kb:sr-only" v-text="$gettext('Publication:')" />
             <span v-text="publishLabel" />
           </span>
           <span
             v-if="card.links.length"
-            class="kanban-card-links ext:inline-flex ext:items-center ext:gap-1"
+            class="kanban-card-links kb:inline-flex kb:items-center kb:gap-1"
             :title="linksLabel"
           >
             <oc-icon name="links" fill-type="line" size="small" />
-            <span class="ext:sr-only" v-text="linksLabel" />
+            <span class="kb:sr-only" v-text="linksLabel" />
             <span aria-hidden="true" v-text="card.links.length" />
           </span>
-          <span class="ext:ml-auto ext:inline-flex ext:items-center ext:gap-2">
+          <span class="kb:ml-auto kb:inline-flex kb:items-center kb:gap-2">
             <viewer-badges :viewers="viewers" />
             <card-avatars v-if="card.assignees.length" :assignees="card.assignees" />
           </span>
@@ -60,7 +60,7 @@
       </div>
       <kanban-menu
         v-if="!isReadOnly"
-        class="ext:relative ext:z-10 ext:-mr-1 ext:-mt-1"
+        class="kb:relative kb:z-10 kb:-mr-1 kb:-mt-1"
         :label="$gettext('Actions for »%{title}«', { title: displayTitle })"
         :title="displayTitle"
         :sections="menuSections"

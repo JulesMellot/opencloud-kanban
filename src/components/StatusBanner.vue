@@ -1,21 +1,21 @@
 <template>
-  <div v-if="banner" class="ext:px-4 ext:pb-2">
+  <div v-if="banner" class="kb:px-4 kb:pb-2">
     <div
-      class="kanban-status-banner ext:flex ext:flex-wrap ext:items-center ext:gap-x-3 ext:gap-y-2 ext:rounded-lg ext:px-3 ext:py-2"
+      class="kanban-status-banner kb:flex kb:flex-wrap kb:items-center kb:gap-x-3 kb:gap-y-2 kb:rounded-lg kb:px-3 kb:py-2"
       :class="
         banner.tone === 'error'
-          ? 'ext:bg-role-error-container ext:text-role-on-error-container'
-          : 'ext:bg-role-secondary-container ext:text-role-on-secondary-container'
+          ? 'kb:bg-role-error-container kb:text-role-on-error-container'
+          : 'kb:bg-role-secondary-container kb:text-role-on-secondary-container'
       "
       :role="banner.tone === 'error' ? 'alert' : 'status'"
       :data-kind="banner.kind"
     >
       <oc-icon :name="banner.icon" fill-type="line" size="small" />
-      <p class="ext:m-0 ext:min-w-0 ext:flex-1 ext:text-sm">
-        <span class="ext:font-semibold" v-text="banner.title" />
+      <p class="kb:m-0 kb:min-w-0 kb:flex-1 kb:text-sm">
+        <span class="kb:font-semibold" v-text="banner.title" />
         <span v-if="banner.text" v-text="` ${banner.text}`" />
       </p>
-      <div v-if="banner.actions" class="ext:flex ext:gap-2">
+      <div v-if="banner.actions" class="kb:flex kb:gap-2">
         <oc-button v-if="canRetry" size="small" appearance="outline" @click="retry">
           <oc-icon name="refresh" fill-type="line" size="small" />
           <span v-text="$gettext('Try again')" />

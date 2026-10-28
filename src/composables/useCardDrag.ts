@@ -142,11 +142,7 @@ export function useCardDrag({
     ghost.removeAttribute('data-card-id')
     ghost.removeAttribute('id')
     ghost.setAttribute('aria-hidden', 'true')
-    ghost.classList.add(
-      'kanban-drag-ghost',
-      'ext:shadow-lg',
-      'ext:bg-role-surface-container-highest'
-    )
+    ghost.classList.add('kanban-drag-ghost', 'kb:shadow-lg', 'kb:bg-role-surface-container-highest')
     Object.assign(ghost.style, {
       position: 'fixed',
       top: '0',

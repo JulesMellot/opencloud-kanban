@@ -1,25 +1,25 @@
 <template>
   <div
-    class="kanban-calendar-grid ext:flex ext:min-h-0 ext:flex-col ext:overflow-hidden ext:rounded-xl ext:border ext:border-role-outline-variant"
+    class="kanban-calendar-grid kb:flex kb:min-h-0 kb:flex-col kb:overflow-hidden kb:rounded-xl kb:border kb:border-role-outline-variant"
     role="grid"
     :aria-label="label"
   >
-    <div class="ext:grid ext:grid-cols-7 ext:border-b ext:border-role-outline-variant" role="row">
+    <div class="kb:grid kb:grid-cols-7 kb:border-b kb:border-role-outline-variant" role="row">
       <span
         v-for="(name, index) in weekdays"
         :key="name"
         role="columnheader"
-        class="ext:truncate ext:px-2 ext:py-1.5 ext:text-sm ext:font-semibold ext:text-role-on-surface-variant"
+        class="kb:truncate kb:px-2 kb:py-1.5 kb:text-sm kb:font-semibold kb:text-role-on-surface-variant"
         :aria-label="longWeekdays[index]"
         v-text="name"
       />
     </div>
-    <div class="ext:flex ext:min-h-0 ext:flex-1 ext:flex-col ext:overflow-y-auto" data-drag-scroll>
+    <div class="kb:flex kb:min-h-0 kb:flex-1 kb:flex-col kb:overflow-y-auto" data-drag-scroll>
       <div
         v-for="week in weeks"
         :key="week[0]"
-        class="ext:grid ext:flex-1 ext:grid-cols-7 ext:border-b ext:border-role-outline-variant ext:last:border-b-0"
-        :class="range === 'week' ? 'ext:min-h-80' : 'ext:min-h-28'"
+        class="kb:grid kb:flex-1 kb:grid-cols-7 kb:border-b kb:border-role-outline-variant kb:last:border-b-0"
+        :class="range === 'week' ? 'kb:min-h-80' : 'kb:min-h-28'"
         role="row"
       >
         <div
@@ -28,22 +28,22 @@
           role="gridcell"
           :aria-label="dayLabel(day)"
           :aria-current="day === todayIso ? 'date' : undefined"
-          class="kanban-calendar-day ext:group ext:flex ext:min-w-0 ext:flex-col ext:gap-1 ext:border-r ext:border-role-outline-variant ext:p-1 ext:last:border-r-0"
+          class="kanban-calendar-day kb:group kb:flex kb:min-w-0 kb:flex-col kb:gap-1 kb:border-r kb:border-role-outline-variant kb:p-1 kb:last:border-r-0"
           :class="{
-            'ext:bg-role-surface-container-low': range === 'month' && !isSameMonth(day, month),
-            'ext:bg-role-secondary-container/40': isDropTarget(day)
+            'kb:bg-role-surface-container-low': range === 'month' && !isSameMonth(day, month),
+            'kb:bg-role-secondary-container/40': isDropTarget(day)
           }"
           data-drop-zone="day"
           :data-day="day"
         >
-          <div class="ext:flex ext:items-center ext:justify-between ext:gap-1">
+          <div class="kb:flex kb:items-center kb:justify-between kb:gap-1">
             <span
-              class="kanban-calendar-day-number ext:inline-flex ext:size-7 ext:items-center ext:justify-center ext:rounded-full ext:text-sm"
+              class="kanban-calendar-day-number kb:inline-flex kb:size-7 kb:items-center kb:justify-center kb:rounded-full kb:text-sm"
               :class="
                 day === todayIso
-                  ? 'ext:bg-role-secondary ext:font-semibold ext:text-role-on-secondary'
+                  ? 'kb:bg-role-secondary kb:font-semibold kb:text-role-on-secondary'
                   : range === 'month' && !isSameMonth(day, month)
-                    ? 'ext:text-role-on-surface-variant'
+                    ? 'kb:text-role-on-surface-variant'
                     : ''
               "
               aria-hidden="true"
@@ -53,14 +53,14 @@
               v-if="!isReadOnly"
               v-oc-tooltip="$gettext('Add a card on %{day}', { day: dayLabel(day) })"
               appearance="raw"
-              class="kanban-calendar-add ext:p-0.5 ext:opacity-0 ext:group-hover:opacity-100 ext:focus-visible:opacity-100"
+              class="kanban-calendar-add kb:p-0.5 kb:opacity-0 kb:group-hover:opacity-100 kb:focus-visible:opacity-100"
               :aria-label="$gettext('Add a card on %{day}', { day: dayLabel(day) })"
               @click="$emit('addOnDay', day)"
             >
               <oc-icon name="add" fill-type="line" size="small" />
             </oc-button>
           </div>
-          <ol class="ext:m-0 ext:flex ext:list-none ext:flex-col ext:gap-1 ext:p-0">
+          <ol class="kb:m-0 kb:flex kb:list-none kb:flex-col kb:gap-1 kb:p-0">
             <calendar-entry
               v-for="card in cardsByDay.get(day) ?? []"
               :key="card.id"

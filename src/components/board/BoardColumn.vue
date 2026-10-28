@@ -1,19 +1,19 @@
 <template>
   <section
     :id="`kanban-column-${column.id}`"
-    class="kanban-column ext:flex ext:w-full ext:shrink-0 ext:flex-col ext:rounded-xl ext:border ext:border-role-outline-variant ext:bg-role-surface ext:sm:max-h-full ext:sm:w-72"
+    class="kanban-column kb:flex kb:w-full kb:shrink-0 kb:flex-col kb:rounded-xl kb:border kb:border-role-outline-variant kb:bg-role-surface kb:sm:max-h-full kb:sm:w-72"
     :aria-labelledby="`kanban-column-title-${column.id}`"
     :data-column-id="column.id"
   >
-    <header class="ext:flex ext:items-center ext:gap-2 ext:py-1 ext:pl-3 ext:pr-1">
+    <header class="kb:flex kb:items-center kb:gap-2 kb:py-1 kb:pl-3 kb:pr-1">
       <column-color-dot :color="color" />
       <h2
         :id="`kanban-column-title-${column.id}`"
-        class="kanban-column-title ext:m-0 ext:min-w-0 ext:flex-1 ext:truncate ext:text-base ext:font-semibold"
+        class="kanban-column-title kb:m-0 kb:min-w-0 kb:flex-1 kb:truncate kb:text-base kb:font-semibold"
         v-text="column.title"
       />
       <span
-        class="kanban-column-count ext:rounded-full ext:bg-role-surface-container-highest ext:px-2 ext:text-sm ext:text-role-on-surface-variant"
+        class="kanban-column-count kb:rounded-full kb:bg-role-surface-container-highest kb:px-2 kb:text-sm kb:text-role-on-surface-variant"
         :aria-label="countLabel"
         v-text="countText"
       />
@@ -25,7 +25,7 @@
       />
     </header>
     <ol
-      class="kanban-column-cards ext:m-0 ext:flex ext:min-h-14 ext:flex-1 ext:flex-col ext:gap-2 ext:overflow-y-auto ext:p-2 ext:pt-1"
+      class="kanban-column-cards kb:m-0 kb:flex kb:min-h-14 kb:flex-1 kb:flex-col kb:gap-2 kb:overflow-y-auto kb:p-2 kb:pt-1"
       data-drop-zone="column"
       :data-column-id="column.id"
       data-drag-scroll
@@ -34,7 +34,7 @@
       <template v-for="(item, position) in rows" :key="item.key">
         <li
           v-if="item.kind === 'placeholder'"
-          class="kanban-drop-placeholder ext:list-none ext:rounded-md ext:border-2 ext:border-dashed ext:border-role-outline-variant ext:bg-role-surface-container-low"
+          class="kanban-drop-placeholder kb:list-none kb:rounded-md kb:border-2 kb:border-dashed kb:border-role-outline-variant kb:bg-role-surface-container-low"
           :style="{ height: `${draggedHeight}px` }"
           aria-hidden="true"
         />
@@ -48,7 +48,7 @@
       </template>
       <li
         v-if="!cards.length && dropIndex === null"
-        class="kanban-column-empty ext:list-none ext:rounded-md ext:border ext:border-dashed ext:border-role-outline-variant ext:px-3 ext:py-4 ext:text-center ext:text-sm ext:text-role-on-surface-variant"
+        class="kanban-column-empty kb:list-none kb:rounded-md kb:border kb:border-dashed kb:border-role-outline-variant kb:px-3 kb:py-4 kb:text-center kb:text-sm kb:text-role-on-surface-variant"
         v-text="totalCount ? $gettext('No card matches the filters') : $gettext('No cards yet')"
       />
     </ol>

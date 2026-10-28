@@ -1,6 +1,6 @@
 <template>
   <oc-avatars
-    class="kanban-avatars ext:flex ext:items-center ext:flex-row ext:flex-nowrap"
+    class="kanban-avatars kb:flex kb:items-center kb:flex-row kb:flex-nowrap"
     :items="items"
     :stacked="stacked"
     :max-displayed="maxDisplayed"

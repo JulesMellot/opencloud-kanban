@@ -1,23 +1,23 @@
 <template>
-  <div class="kanban-assignees ext:flex ext:flex-col ext:gap-2">
-    <span :id="labelId" class="ext:font-semibold ext:text-sm" v-text="$gettext('Assignees')" />
+  <div class="kanban-assignees kb:flex kb:flex-col kb:gap-2">
+    <span :id="labelId" class="kb:font-semibold kb:text-sm" v-text="$gettext('Assignees')" />
     <ul
       v-if="card.assignees.length"
-      class="ext:m-0 ext:flex ext:list-none ext:flex-col ext:gap-1 ext:p-0"
+      class="kb:m-0 kb:flex kb:list-none kb:flex-col kb:gap-1 kb:p-0"
       :aria-labelledby="labelId"
     >
       <li
         v-for="assignee in card.assignees"
         :key="assignee.id"
-        class="ext:flex ext:items-center ext:gap-2 ext:rounded-md ext:py-0.5"
+        class="kb:flex kb:items-center kb:gap-2 kb:rounded-md kb:py-0.5"
       >
         <user-avatar :user-id="assignee.id" :user-name="assignee.displayName" :width="28" />
-        <span class="ext:min-w-0 ext:flex-1 ext:truncate" v-text="assignee.displayName" />
+        <span class="kb:min-w-0 kb:flex-1 kb:truncate" v-text="assignee.displayName" />
         <oc-button
           v-if="!isReadOnly"
           v-oc-tooltip="$gettext('Remove %{name}', { name: assignee.displayName })"
           appearance="raw"
-          class="ext:p-1"
+          class="kb:p-1"
           :aria-label="$gettext('Remove %{name}', { name: assignee.displayName })"
           @click="remove(assignee.id)"
         >
@@ -27,7 +27,7 @@
     </ul>
     <p
       v-else-if="isReadOnly"
-      class="ext:m-0 ext:text-sm ext:text-role-on-surface-variant"
+      class="kb:m-0 kb:text-sm kb:text-role-on-surface-variant"
       v-text="$gettext('Nobody is assigned')"
     />
     <oc-select
@@ -45,7 +45,7 @@
       @update:model-value="add"
     >
       <template #option="option">
-        <span class="ext:flex ext:items-center ext:gap-2">
+        <span class="kb:flex kb:items-center kb:gap-2">
           <user-avatar :user-id="option.id" :user-name="option.displayName" :width="24" />
           <span v-text="option.displayName" />
         </span>

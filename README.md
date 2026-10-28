@@ -51,7 +51,7 @@ Download `kanban-<version>.zip` and unzip it into the web apps directory of Open
 archive contains a `kanban/` folder, like the official extensions:
 
 ```bash
-unzip kanban-0.1.0.zip -d "$OC_DATA_DIR/web/assets/apps/"
+unzip kanban-0.1.1.zip -d "$OC_DATA_DIR/web/assets/apps/"
 ```
 
 | Setup                                                                  | Web apps directory                                                                                          |

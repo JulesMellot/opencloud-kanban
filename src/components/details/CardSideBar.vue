@@ -1,6 +1,6 @@
 <template>
   <side-bar
-    class="kanban-card-sidebar ext:z-30"
+    class="kanban-card-sidebar kb:z-30"
     :available-panels="panels"
     :panel-context="{}"
     :loading="false"
@@ -9,13 +9,13 @@
     @keydown.esc.stop="$emit('close')"
   >
     <template #rootHeader>
-      <div class="ext:flex ext:min-w-0 ext:items-center ext:gap-2 ext:px-2">
+      <div class="kb:flex kb:min-w-0 kb:items-center kb:gap-2 kb:px-2">
         <column-color-dot v-if="column" :color="columnColor(column)" />
         <h2
-          class="ext:m-0 ext:truncate ext:text-base ext:font-semibold"
+          class="kb:m-0 kb:truncate kb:text-base kb:font-semibold"
           v-text="column ? column.title : $gettext('Card details')"
         />
-        <viewer-badges :viewers="presence.viewersOf(cardId)" :width="22" class="ext:ml-1" />
+        <viewer-badges :viewers="presence.viewersOf(cardId)" :width="22" class="kb:ml-1" />
       </div>
     </template>
   </side-bar>

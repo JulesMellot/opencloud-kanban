@@ -93,9 +93,15 @@ export class Backend {
   }
 
   async read(space: Space, path: string) {
-    const response = await this.admin.get(this.url(space, path))
-    expect(response.ok()).toBeTruthy()
-    return response.text()
+    // a read right while a browser writes the file can be refused for a moment
+    for (let attempt = 1; ; attempt++) {
+      const response = await this.admin.get(this.url(space, path))
+      if (response.ok() || attempt === 5) {
+        expect(response.ok(), `GET ${path}: ${response.status()}`).toBeTruthy()
+        return response.text()
+      }
+      await new Promise((resolve) => setTimeout(resolve, 500))
+    }
   }
 
   async board(space: Space, path = 'production.kanban') {

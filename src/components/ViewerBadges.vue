@@ -1,7 +1,7 @@
 <template>
   <span
     v-if="viewers.length"
-    class="kanban-viewers ext:inline-flex ext:items-center ext:-space-x-1"
+    class="kanban-viewers kb:inline-flex kb:items-center kb:-space-x-1"
     role="img"
     :aria-label="label"
   >
@@ -9,7 +9,7 @@
       v-for="viewer in viewers"
       :key="viewer.id"
       v-oc-tooltip="label"
-      class="ext:inline-flex ext:rounded-full ext:border-2"
+      class="kb:inline-flex kb:rounded-full kb:border-2"
       :style="{ borderColor: viewer.color }"
       :data-test-user-id="viewer.id"
     >
