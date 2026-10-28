@@ -19,12 +19,12 @@ export interface JsonObject {
 /** Color roles of the design system a column can use, see `--oc-role-*`. */
 export const COLUMN_COLORS = [
   'outline',
-  'secondary',
   'tertiary',
+  'secondary',
   'primary',
-  'chrome',
   'inverse-primary',
-  'error'
+  'error',
+  'on-surface'
 ] as const
 export type ColumnColor = (typeof COLUMN_COLORS)[number]
 
@@ -377,12 +377,12 @@ export interface DefaultColumnTitles {
 export function createDefaultDocument(titles: DefaultColumnTitles): KanbanDocument {
   const columns: [keyof DefaultColumnTitles, ColumnColor][] = [
     ['idea', 'outline'],
-    ['brief', 'secondary'],
-    ['shooting', 'tertiary'],
+    ['brief', 'tertiary'],
+    ['shooting', 'secondary'],
     ['editing', 'primary'],
     ['review', 'error'],
-    ['scheduled', 'chrome'],
-    ['published', 'inverse-primary']
+    ['scheduled', 'inverse-primary'],
+    ['published', 'on-surface']
   ]
   return {
     version: SCHEMA_VERSION,
