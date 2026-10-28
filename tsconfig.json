@@ -1,0 +1,9 @@
+{
+  "extends": "@opencloud-eu/tsconfig",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "types": ["vitest/globals", "node"]
+  },
+  "include": ["src", "tests", "types.d.ts", "vite.config.ts", "playwright.config.ts"]
+}

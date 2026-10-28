@@ -1,0 +1,15 @@
+# Projet autonome : ce fichier ne sert qu'aux réglages pnpm (repris du dépôt officiel web-extensions).
+autoInstallPeers: true
+publicHoistPattern:
+  - '*eslint*'
+overrides:
+  '@module-federation/vite': '1.14.2'
+minimumReleaseAgeExclude:
+  - '@opencloud-eu/design-system@8.2.1'
+  - '@opencloud-eu/eslint-config@8.2.1'
+  - '@opencloud-eu/extension-sdk@8.2.1'
+  - '@opencloud-eu/prettier-config@8.2.1'
+  - '@opencloud-eu/tsconfig@8.2.1'
+  - '@opencloud-eu/web-client@8.2.1'
+  - '@opencloud-eu/web-pkg@8.2.1'
+  - '@opencloud-eu/web-test-helpers@8.2.1'
